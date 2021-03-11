@@ -1,6 +1,4 @@
----
-output: github_document
----
+
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -18,7 +16,7 @@ PAn-canceR Inferred Synthetic lethalities (PARIS), a machine learning-based appr
 You can install the released version of PARIS with:
 
 ```r
-devtools::install_github()
+devtools::install_github("sbenfatto/PARIS"")
 ```
 
 ## Example
