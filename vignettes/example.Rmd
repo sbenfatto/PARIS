@@ -1,0 +1,103 @@
+---
+title: "example"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{example}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(PARIS)
+```
+
+library(ggrepel)
+library(openxlsx)
+
+select_pairs("/mnt/data/DepMap19Q3/Models_DDR_vs_DDR/x_paper/", coeff.filter = T) -> mydata_DDR
+select_pairs("/mnt/data/DepMap19Q3/Models_DDR_vs_ALL/x_paper/", coeff.filter = T) -> mydata_ALL
+
+#write files
+file_selected_pairs_DDR <- "/mnt/data/DepMap19Q3/Models_DDR_vs_DDR/x_paper/Selected_genes_DDR_vs_DDR.xlsx"
+wb <- createWorkbook()
+addWorksheet(wb, "er")
+addWorksheet(wb, "eg")
+addWorksheet(wb, "ec")
+addWorksheet(wb, "mr")
+addWorksheet(wb, "mg")
+addWorksheet(wb, "mc")
+
+writeData(wb, "er", filter(mydata_DDR, group == "er"), startRow = 1, startCol = 1)
+writeData(wb, "eg", filter(mydata_DDR, group == "eg"), startRow = 1, startCol = 1)
+writeData(wb, "ec", filter(mydata_DDR, group == "ec"), startRow = 1, startCol = 1)
+writeData(wb, "mr", filter(mydata_DDR, group == "mr"), startRow = 1, startCol = 1)
+writeData(wb, "mg", filter(mydata_DDR, group == "mg"), startRow = 1, startCol = 1)
+writeData(wb, "mc", filter(mydata_DDR, group == "mc"), startRow = 1, startCol = 1)
+
+saveWorkbook(wb, file = file_selected_pairs_DDR)
+
+file_selected_pairs_ALL <- "/mnt/data/DepMap19Q3/Models_DDR_vs_ALL/x_paper/Selected_genes_DDR_vs_ALL.xlsx"
+wb <- createWorkbook()
+addWorksheet(wb, "er")
+addWorksheet(wb, "eg")
+addWorksheet(wb, "ec")
+addWorksheet(wb, "mr")
+addWorksheet(wb, "mg")
+addWorksheet(wb, "mc")
+
+writeData(wb, "er", filter(mydata_ALL, group == "er"), startRow = 1, startCol = 1)
+writeData(wb, "eg", filter(mydata_ALL, group == "eg"), startRow = 1, startCol = 1)
+writeData(wb, "ec", filter(mydata_ALL, group == "ec"), startRow = 1, startCol = 1)
+writeData(wb, "mr", filter(mydata_ALL, group == "mr"), startRow = 1, startCol = 1)
+writeData(wb, "mg", filter(mydata_ALL, group == "mg"), startRow = 1, startCol = 1)
+writeData(wb, "mc", filter(mydata_ALL, group == "mc"), startRow = 1, startCol = 1)
+
+saveWorkbook(wb, file = file_selected_pairs_ALL)
+
+
+##ANALYSIS STRINGDB
+#subset by threshold
+mydata_DDR_sub <- subset_by_threshold(mydata_DDR, "e", 0.4)
+#retrieve stringdb interaction
+mydata_DDR_sub_string <- get_stringdb_interactions(mydata_DDR_sub)
+mydata_DDR_sub_string_freq <- compute_interaction_freq(mydata_DDR_sub, mydata_DDR_sub_string)
+#plot combined score
+plot.stringdb.interactions.combined.score.by.group(mydata_DDR_sub_string)
+#plot freq of interaction in selected pairs by group
+plot.stringdb.interactions.by.group(mydata_DDR_sub_string_freq)
+
+#compare DDR vs DDR and DDR vs ALL commonly by group
+inner_join(mydata_DDR, mydata_ALL, by = c("gene", "c", "group")) %>%
+  ggplot(aes(scaled.x, scaled.y))+geom_point()+
+  facet_wrap(~group)+geom_smooth(method = "lm")+
+  stat_cor()+
+  xlab("scaled importance DDR vs DDR")+ylab("scaled importance DDR vs ALL")+theme_bw()+
+  theme(text = element_text(size = 20), axis.text = element_text(colour = "black"))+
+  geom_label_repel(data = . %>% mutate(labels=ifelse((scaled.x > 0.4 | scaled.y > 0.4), as.character(interaction(gene,c)), "")), aes(label=labels), box.padding = 1)
+
+
+#PARALOGS ANALYSIS
+paralogsDDR <- get_paralog_biomart(unique(c(mydata_DDR$gene))) %>% as_tibble() %>% filter(hsapiens_paralog_associated_gene_name != "")
+colnames(paralogsDDR) <- c("gene", "c")
+paralogsDDR$paralogs <- TRUE
+
+left_join(mydata_DDR, paralogsDDR) %>% replace_na(list(paralogs = "FALSE")) %>%
+  ggplot(aes(paralogs, scaled))+
+  geom_boxplot(outlier.shape = NA)+facet_wrap(~group)+geom_jitter(width = 0.2)+stat_compare_means()+
+  theme_bw()+
+  theme(text = element_text(size = 20), axis.text = element_text(colour = "black"))+
+  ylab("scaled importance score")
+
+left_join(mydata_ALL, paralogsDDR) %>% replace_na(list(paralogs = "FALSE")) %>%
+  ggplot(aes(paralogs, scaled))+
+  geom_boxplot(outlier.shape = NA)+facet_wrap(~group)+geom_jitter(width = 0.2)+stat_compare_means()+
+  theme_bw()+
+  theme(text = element_text(size = 20), axis.text = element_text(colour = "black"))+
+  ylab("scaled importance score")
