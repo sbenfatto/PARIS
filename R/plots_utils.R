@@ -16,7 +16,7 @@
 #' \dontrun{
 #' plot.sca.exp.dep(TYMS, TYMP)
 #' }
-plot.sca.exp.dep <- function(depgene, expgene) {
+plot_sca_exp_dep <- function(depgene, expgene) {
 
   depgene <- deparse(substitute(depgene))
   expgene <- deparse(substitute(expgene))
@@ -44,7 +44,7 @@ plot.sca.exp.dep <- function(depgene, expgene) {
 #' \dontrun{
 #' plot.sca.exp.dep.ratio(TYMS)
 #' }
-plot.sca.exp.dep.ratio <- function(depgene, expgenes = c("TYMS", "TYMP")) {
+plot_sca_exp_dep_ratio <- function(depgene, expgenes = c("TYMS", "TYMP")) {
 
   depgene <- deparse(substitute(depgene))
 
@@ -71,7 +71,7 @@ plot.sca.exp.dep.ratio <- function(depgene, expgenes = c("TYMS", "TYMP")) {
 #' \dontrun{
 #' plot.sca.mut.dep(TYMS, CDKN2A)
 #' }
-plot.sca.mut.dep <- function(depgene, mutgene) {
+plot_sca_mut_dep <- function(depgene, mutgene) {
 
   depgene <- deparse(substitute(depgene))
   mutgene <- deparse(substitute(mutgene))
@@ -99,7 +99,7 @@ plot.sca.mut.dep <- function(depgene, mutgene) {
 #' \dontrun{
 #' plot.rank.exp.dep(TYMS, TYMP)
 #' }
-plot.rank.exp.dep <- function(depgene, expgene) {
+plot_rank_exp_dep <- function(depgene, expgene) {
 
   depgene <- deparse(substitute(depgene))
   expgene <- deparse(substitute(expgene))
@@ -128,7 +128,7 @@ plot.rank.exp.dep <- function(depgene, expgene) {
 #' \dontrun{
 #' plot.rank.exp.dep.sub(TYMS, TYMP, c())
 #' }
-plot.rank.exp.dep.sub <- function(depgene, expgene, cells) {
+plot_rank_exp_dep_sub <- function(depgene, expgene, cells) {
 
   depgene <- deparse(substitute(depgene))
   expgene <- deparse(substitute(expgene))
@@ -159,7 +159,7 @@ plot.rank.exp.dep.sub <- function(depgene, expgene, cells) {
 #' \dontrun{
 #' plot.mut.dep(TYMS, CDKN2A)
 #' }
-plot.mut.dep <- function(depgene, mutgene) {
+plot_mut_dep <- function(depgene, mutgene) {
 
   depgene <- deparse(substitute(depgene))
   mutgene <- deparse(substitute(mutgene))
@@ -189,7 +189,7 @@ plot.mut.dep <- function(depgene, mutgene) {
 #' \dontrun{
 #' plot.rank.mut.dep(TYMS, CDKN2A)
 #' }
-plot.rank.mut.dep <- function(depgene, mutgene) {
+plot_rank_mut_dep <- function(depgene, mutgene) {
 
   depgene <- deparse(substitute(depgene))
   mutgene <- deparse(substitute(mutgene))
@@ -218,7 +218,7 @@ plot.rank.mut.dep <- function(depgene, mutgene) {
 #' \dontrun{
 #' plot.rank.mut.dep.sub(TYMS, CDKN2A, c())
 #' }
-plot.rank.mut.dep.sub <- function(depgene, mutgene, cells) {
+plot_rank_mut_dep_sub <- function(depgene, mutgene, cells) {
 
   depgene <- deparse(substitute(depgene))
   mutgene <- deparse(substitute(mutgene))
@@ -249,7 +249,7 @@ plot.rank.mut.dep.sub <- function(depgene, mutgene, cells) {
 #' \dontrun{
 #' plot.box.mut.dep(TYMS, CDKN2A)
 #' }
-plot.box.mut.dep <- function(depgene, mutgene) {
+plot_box_mut_dep <- function(depgene, mutgene) {
 
   depgene <- deparse(substitute(depgene))
   mutgene <- deparse(substitute(mutgene))
@@ -280,7 +280,7 @@ plot.box.mut.dep <- function(depgene, mutgene) {
 #' \dontrun{
 #' plot.vl.mut.dep(TYMS, CDKN2A)
 #' }
-plot.vl.mut.dep <- function(depgene, mutgene) {
+plot_vl_mut_dep <- function(depgene, mutgene) {
 
   depgene <- deparse(substitute(depgene))
   mutgene <- deparse(substitute(mutgene))
@@ -311,7 +311,7 @@ plot.vl.mut.dep <- function(depgene, mutgene) {
 #' \dontrun{
 #' plot.box.def.dep(TYMS, CDKN2A)
 #' }
-plot.box.def.dep <- function(depgene, defgene) {
+plot_box_def_dep <- function(depgene, defgene) {
 
   depgene <- deparse(substitute(depgene))
   defgene <- deparse(substitute(defgene))
@@ -348,7 +348,7 @@ plot.box.def.dep <- function(depgene, defgene) {
 #' \dontrun{
 #' plot.top.rank(mydata_DDR, "mr", 0.5)
 #' }
-plot.top.rank <- function(data, g = c("mr","mg","mc","er","eg","ec"), cutoff){
+plot_top_rank <- function(data, g = c("mr","mg","mc","er","eg","ec"), cutoff){
 
   g <- match.arg(g)
 
@@ -378,7 +378,7 @@ plot.top.rank <- function(data, g = c("mr","mg","mc","er","eg","ec"), cutoff){
 #' \dontrun{
 #' plot.top.rank.color(mydata_DDR, "mr", "mc", 0.5)
 #' }
-plot.top.rank.color <- function(data, g = c("mr","mg","mc","er","eg","ec"), color = c("mr","mg","mc","er","eg","ec"), cutoff){
+plot_top_rank_color <- function(data, g = c("mr","mg","mc","er","eg","ec"), color = c("mr","mg","mc","er","eg","ec"), cutoff){
 
   g <- match.arg(g)
   color <- match.arg(color)
@@ -500,7 +500,7 @@ HTBreaks <- function(data, by.group=TRUE ){
 #' \dontrun{
 #' HTBreaks.hist(mydata_DDR)
 #' }
-HTBreaks.hist <- function(data, by.group=TRUE ){
+HTBreaks_hist <- function(data, by.group=TRUE ){
 
   if (by.group==T) {
     p <- list()
@@ -590,7 +590,7 @@ HTBreaks.hist <- function(data, by.group=TRUE ){
 #' \dontrun{
 #' plot.stringdb.interactions.combined.score.by.group(mydata_DDR_sub_string)
 #' }
-plot.stringdb.interactions.combined.score.by.group <- function(interactions){
+plot_stringdb_interactions_combined_score_by_group <- function(interactions){
 
   ggplot(interactions, aes(group, combined_score/1000, fill=group))+
     geom_boxplot(outlier.shape = NA)+geom_jitter(width = 0.2)+
@@ -608,7 +608,7 @@ plot.stringdb.interactions.combined.score.by.group <- function(interactions){
 #' \dontrun{
 #' plot.stringdb.interactions.by.group(mydata_DDR_sub_string_freq)
 #' }
-plot.stringdb.interactions.by.group <- function(interaction_freq){
+plot_stringdb_interactions_by_group <- function(interaction_freq){
 
   ggplot(interaction_freq, aes(x = group, y = frequency, fill=subgroup))+
     geom_bar(stat = "identity", color="black")+
@@ -629,7 +629,7 @@ plot.stringdb.interactions.by.group <- function(interaction_freq){
 #' \dontrun{
 #' plot.common.pairs(mydata_DDR, "m")
 #' }
-plot.common.pairs <- function(data, g = c("e", "m"), imp_gini = c("g", "c")){
+plot_common_pairs <- function(data, g = c("e", "m"), imp_gini = c("g", "c")){
 
   g <- match.arg(g, c("e", "m"))
   imp_gini <- match.arg(imp_gini)
@@ -687,7 +687,7 @@ plot.common.pairs <- function(data, g = c("e", "m"), imp_gini = c("g", "c")){
 #' \dontrun{
 #' plot.rank.def.exp.dep(TYMS, TYMP, CDKN2A)
 #' }
-plot.rank.def.exp.dep <- function(depgene, expgene, defgene) {
+plot_rank_def_exp_dep <- function(depgene, expgene, defgene) {
 
   depgene <- deparse(substitute(depgene))
   defgene <- deparse(substitute(defgene))
@@ -726,7 +726,7 @@ plot.rank.def.exp.dep <- function(depgene, expgene, defgene) {
 #' \dontrun{
 #' plot.rank.def.ratio.dep.by.disease(TYMS, defgene=CDKN2A)
 #' }
-plot.rank.def.ratio.dep.by.disease <- function(depgene, expgenes = c("TYMS", "TYMP"), defgene) {
+plot_rank_def_ratio_dep_by_disease <- function(depgene, expgenes = c("TYMS", "TYMP"), defgene) {
 
   depgene <- deparse(substitute(depgene))
   defgene <- deparse(substitute(defgene))
@@ -763,7 +763,7 @@ plot.rank.def.ratio.dep.by.disease <- function(depgene, expgenes = c("TYMS", "TY
 #' \dontrun{
 #' plot.rank.def.ratio.dep.by.disease(TYMS)
 #' }
-plot.rank.def.ratio.dep <- function(depgene, expgenes = c("TYMS", "TYMP")) {
+plot_rank_def_ratio_dep <- function(depgene, expgenes = c("TYMS", "TYMP")) {
 
   depgene <- deparse(substitute(depgene))
   defgene <- deparse(substitute(defgene))
@@ -791,7 +791,7 @@ plot.rank.def.ratio.dep <- function(depgene, expgenes = c("TYMS", "TYMP")) {
 #' \dontrun{
 #' plot.upset(mydata_DDR, "e", 0.4)
 #' }
-plot.upset <- function(data, g = c("e", "m"), cutoff){
+plot_upset <- function(data, g = c("e", "m"), cutoff){
 
   subdata <- filter(data, grepl(g, group)) %>% dplyr::group_by(gene, c) %>%  add_tally() %>% filter(n == 3) %>% mutate(group=ifelse(scaled >= cutoff, paste(group, "high"), paste(group, "low")))
 
