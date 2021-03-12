@@ -24,9 +24,10 @@ Depends:
     ggplot2,
     ggpubr,
     STRINGdb,
-    biomaRt,
     dplyr,
     gridExtra
+Imports:
+    biomaRt
 Suggests: 
     knitr,
     rmarkdown

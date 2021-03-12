@@ -23,7 +23,7 @@ PAn-canceR Inferred Synthetic lethalities (PARIS), a machine learning-based appr
 You can install the released version of PARIS with:
 
 ```r
-devtools::install_github("sbenfatto/PARIS"")
+devtools::install_github("sbenfatto/PARIS")
 ```
 
 ## Example
